@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Stocks</string>
+    <string name="action_upload">Upload Stocks</string>
+</resources>
