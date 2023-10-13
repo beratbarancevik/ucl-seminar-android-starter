@@ -35,32 +35,6 @@ class StockService(
             }
     }
 
-    override fun getStockDetails(stockID: String, completionHandler: (Stock) -> Unit) {
-        db.collection("stocks").document(stockID)
-            .addSnapshotListener { snapshot, error ->
-                error?.let {
-                    Log.w(
-                        this.javaClass.name,
-                        "Error getting stock",
-                        it
-                    )
-                }
-
-                snapshot?.let {
-                    it.toObject(Stock::class.java)?.let { stock ->
-                        completionHandler.invoke(stock)
-                    }
-                }
-            }
-    }
-
-    override fun updateStockDetail(stockID: String, isFavorite: Boolean) {
-        db.collection("stocks").document(stockID).set(
-            mapOf("favorite" to isFavorite),
-            SetOptions.merge()
-        )
-    }
-
     override fun uploadStocks() {
         val stocks = listOf(
             Stock(

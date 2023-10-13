@@ -6,12 +6,6 @@ class MainViewModel(
     private val stockService: StocksServiceI
 ) {
 
-    fun bind(viewStateHandler: (MainViewState) -> Unit) {
-        stockService.getStocks {
-            viewStateHandler.invoke(MainViewState(rows = it))
-        }
-    }
-
     fun uploadAction() {
         stockService.uploadStocks()
     }

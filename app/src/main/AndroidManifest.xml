@@ -8,20 +8,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:theme="@style/Theme.Uclseminarandroid"
         tools:targetApi="34">
         <activity
-            android:name=".screens.main.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Uclseminarandroid">
+            android:name="com.beratcevik.uclseminar.screens.main.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".screens.detail.DetailActivity"
-            android:theme="@style/Theme.Uclseminarandroid" />
     </application>
 
 </manifest>

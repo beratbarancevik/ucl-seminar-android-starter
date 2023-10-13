@@ -1,7 +1,7 @@
-package com.beratcevik.uclseminar.screens.main
+package com.beratcevik.uclseminar.screens.stockslist
 
 import com.beratcevik.uclseminar.service.stocks.models.Stock
 
-data class MainViewState(
+data class StockListViewState(
     val rows: List<Stock>
 )

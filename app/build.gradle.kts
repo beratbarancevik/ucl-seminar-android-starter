@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.beratcevik.uclseminar"
+    namespace = "com.beratcevik.uclseminar.starter"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.beratcevik.uclseminar"
+        applicationId = "com.beratcevik.uclseminar.starter"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

@@ -1,58 +1,63 @@
 package com.beratcevik.uclseminar.screens.main
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.beratcevik.uclseminar.R
-import com.beratcevik.uclseminar.databinding.ActivityMainBinding
-import com.beratcevik.uclseminar.screens.detail.DetailActivity
-import com.beratcevik.uclseminar.screens.main.list.StocksAdapter
+import androidx.fragment.app.commit
+import com.beratcevik.uclseminar.starter.R
+import com.beratcevik.uclseminar.starter.databinding.ActivityMainBinding
+import com.beratcevik.uclseminar.screens.stockslist.StockListFragment
 import com.beratcevik.uclseminar.service.stocks.StockService
+import com.beratcevik.uclseminar.service.stocks.models.Stock
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
     private val viewModel = MainViewModel(StockService(Firebase.firestore))
+    private lateinit var binding: ActivityMainBinding
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setSupportActionBar(binding.toolbar)
         setContentView(binding.root)
 
-        val adapter = StocksAdapter(this, emptyList()) {
-            val myIntent = Intent(this, DetailActivity::class.java)
-            myIntent.putExtra("stockID", it.id)
-            this.startActivity(myIntent)
+        if (savedInstanceState == null) {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace(R.id.fragmentContainer, StockListFragment())
+            }
         }
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = adapter
 
-        viewModel.bind {
-            adapter.stocks = it.rows
-            adapter.notifyDataSetChanged()
+        supportFragmentManager.addOnBackStackChangedListener {
+            invalidateOptionsMenu()
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            }
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+        val isHomeScreen = supportFragmentManager.backStackEntryCount == 0
+        menu.findItem(R.id.action_upload_stocks)?.isVisible = isHomeScreen
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            android.R.id.home -> {
+                supportFragmentManager.popBackStack()
+                true
+            }
+
             R.id.action_upload_stocks -> {
                 viewModel.uploadAction()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

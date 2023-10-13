@@ -1,18 +1,18 @@
-package com.beratcevik.uclseminar.screens.main.list
+package com.beratcevik.uclseminar.screens.stockslist
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.beratcevik.uclseminar.R
-import com.beratcevik.uclseminar.databinding.StockRowBinding
+import com.beratcevik.uclseminar.starter.R
+import com.beratcevik.uclseminar.starter.databinding.StockRowBinding
 import com.beratcevik.uclseminar.service.stocks.models.Stock
 
-class StocksAdapter(
+class StockListAdapter(
     private val context: Context,
     var stocks: List<Stock>,
     private val onRowTap: (Stock) -> Unit
-) : RecyclerView.Adapter<StocksAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<StockListAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: StockRowBinding) :
         RecyclerView.ViewHolder(binding.root) {

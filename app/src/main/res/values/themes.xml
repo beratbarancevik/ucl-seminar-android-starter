@@ -1,7 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Base.Theme.Uclseminarandroid" parent="Theme.Material3.DayNight.NoActionBar">
+<resources>
+    <style name="Theme.Uclseminarandroid" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
          <item name="colorPrimary">@color/pink</item>
     </style>
-
-    <style name="Theme.Uclseminarandroid" parent="Base.Theme.Uclseminarandroid" />
 </resources>
